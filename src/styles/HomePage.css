@@ -1,0 +1,83 @@
+.homepage-container {
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .homepage-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .logo-title {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .logo-image {
+    width: 32px;
+    height: 32px;
+    margin-right: 0.5rem;
+  }
+  
+  .title-text {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #111;
+  }
+  
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .nav-button {
+    background: none;
+    border: none;
+    font-weight: 500;
+    color: #111;
+    cursor: pointer;
+  }
+  
+  .nav-button:hover {
+    color: #ff6600;
+  }
+  
+  .signup-button {
+    padding: 0.5rem 1rem;
+    border: 1px solid #111;
+    border-radius: 4px;
+    background-color: transparent;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .signup-button:hover {
+    background-color: #111;
+    color: white;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .homepage-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .nav-links {
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+  
+    .nav-button, .signup-button {
+      width: 100%;
+      text-align: left;
+    }
+  }
+  

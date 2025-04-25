@@ -1,0 +1,12 @@
+.register-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f9fafb, #e0e7ff);
+    padding: 2rem;
+  }
+  
+  .register-card {
+    width: 100%;
+    max-width: 450px;
+    background-color: #ffffff;
+  }
+  

@@ -1,0 +1,59 @@
+.map-page {
+  display: flex;
+  height: calc(100vh - 60px); /* Header varsa ona göre */
+}
+
+.map-sidebar {
+  width: 300px;
+  background: #f7f9fc;
+  padding: 1rem;
+  overflow-y: auto;
+  border-right: 1px solid #ddd;
+}
+
+.filter-select {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.message-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.message-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+  border-radius: 5px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+.msg-type {
+  font-weight: bold;
+  color: #007bff;
+}
+
+.msg-location {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.msg-date {
+  font-size: 0.8rem;
+  color: #777;
+}
+
+.map-content {
+  flex: 1;
+  height: 100%;
+}
+
+.popup-content {
+  font-size: 0.9rem;
+  max-width: 250px;
+}
