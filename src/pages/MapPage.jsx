@@ -13,6 +13,14 @@ const iconByType = {
   DEFAULT: new L.Icon({ iconUrl: '/pins/default.png', iconSize: [40, 40] }),
 };
 
+// ⚠️ Koordinatı hafif saptırarak aynı konumdaki pinleri ayırır
+function jitter(lat, lng) {
+  const offset = 0.001; // yaklaşık 5 metre
+  const jitteredLat = lat + (Math.random() - 0.5) * offset;
+  const jitteredLng = lng + (Math.random() - 0.5) * offset;
+  return [jitteredLat, jitteredLng];
+}
+
 function MapPage() {
   const [messages, setMessages] = useState([]);
   const [selectedType, setSelectedType] = useState('');
@@ -60,33 +68,37 @@ function MapPage() {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution="&copy; OpenStreetMap contributors"
           />
-          {filteredMessages.map((msg) => (
-            msg.latitude && msg.longitude && (
-              <Marker
-                key={msg.id}
-                position={[msg.latitude, msg.longitude]}
-                icon={iconByType[msg.type] || iconByType.DEFAULT}
-              >
-                <Popup>
-                  <div className="popup-content">
-                    <h4>{msg.type}</h4>
-                    <p><strong>Tarih:</strong> {msg.timestamp?.split('T')[0]}</p>
-                    <p><strong>Adres:</strong> {msg.street}, {msg.neighborhood}, {msg.district}, {msg.city}</p>
-                    {msg.description && <p><strong>Açıklama:</strong> {msg.description}</p>}
-                    {msg.personCount && <p><strong>Kişi Sayısı:</strong> {msg.personCount}</p>}
-                    {msg.victimNames?.length > 0 && (
-                      <p><strong>Mağdurlar:</strong> {msg.victimNames.join(', ')}</p>
-                    )}
-                    {msg.healthType && <p><strong>Sağlık Durumu:</strong> {msg.healthType}</p>}
-                    {msg.aidQuantities && Object.entries(msg.aidQuantities).map(([key, val]) => (
-                      <p key={key}><strong>{key}:</strong> {val}</p>
-                    ))}
-                    <p><strong>Gönderen:</strong> {msg.senderName} ({msg.senderEmail})</p>
-                  </div>
-                </Popup>
-              </Marker>
-            )
-          ))}
+          {filteredMessages.map((msg) => {
+            if (msg.latitude && msg.longitude) {
+              const [jLat, jLng] = jitter(msg.latitude, msg.longitude);
+              return (
+                <Marker
+                  key={msg.id}
+                  position={[jLat, jLng]}
+                  icon={iconByType[msg.type] || iconByType.DEFAULT}
+                >
+                  <Popup>
+                    <div className="popup-content">
+                      <h4>{msg.type}</h4>
+                      <p><strong>Tarih:</strong> {msg.timestamp?.split('T')[0]}</p>
+                      <p><strong>Adres:</strong> {msg.street}, {msg.neighborhood}, {msg.district}, {msg.city}</p>
+                      {msg.description && <p><strong>Açıklama:</strong> {msg.description}</p>}
+                      {msg.personCount && <p><strong>Kişi Sayısı:</strong> {msg.personCount}</p>}
+                      {msg.victimNames?.length > 0 && (
+                        <p><strong>Mağdurlar:</strong> {msg.victimNames.join(', ')}</p>
+                      )}
+                      {msg.healthType && <p><strong>Sağlık Durumu:</strong> {msg.healthType}</p>}
+                      {msg.aidQuantities && Object.entries(msg.aidQuantities).map(([key, val]) => (
+                        <p key={key}><strong>{key}:</strong> {val}</p>
+                      ))}
+                      <p><strong>Gönderen:</strong> {msg.senderName} ({msg.senderEmail})</p>
+                    </div>
+                  </Popup>
+                </Marker>
+              );
+            }
+            return null;
+          })}
         </MapContainer>
       </div>
     </div>
